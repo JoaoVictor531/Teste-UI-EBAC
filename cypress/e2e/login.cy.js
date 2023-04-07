@@ -6,6 +6,10 @@ describe('Funcionalidade Login', () => {
         cy.visit('http://lojaebac.ebaconline.art.br/minha-conta/')
     });
 
+    afterEach(() => {
+        cy.screenshot()
+    });
+
     it('Deve fazer login com sucesso', () => {
         cy.get('#username').type('aluno_ebac@teste.com')
         cy.get('#password').type('teste@teste.com')
@@ -15,7 +19,7 @@ describe('Funcionalidade Login', () => {
         cy.get('.woocommerce-MyAccount-content > :nth-child(2)').should('be.visible')
     });
 
-    it.only('Deve exibir mensagem de erro após digitar usuário incorreto', () => {
+    it('Deve exibir mensagem de erro após digitar usuário incorreto', () => {
         cy.get('#username').type('ebac@teste.com')
         cy.get('#password').type('teste@teste.com')
         cy.get('.woocommerce-form > .button').click()
@@ -31,6 +35,5 @@ describe('Funcionalidade Login', () => {
 
         cy.get('.woocommerce-error').should('be.visible')
         cy.get('.woocommerce-error').should('contain', 'Perdeu a senha?')
-        
     });
 });
